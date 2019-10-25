@@ -8,9 +8,12 @@ let turn, winner, board
 /*----- cached element references -----*/ 
 /*----- event listeners -----*/ 
 /*----- functions -----*/
-
-board = [
+function init(
+let board = [
     [0,0,0]
     [0,0,0]
     [0,0,0]
 ]
+)
+
+init();
