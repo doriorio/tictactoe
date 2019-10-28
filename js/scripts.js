@@ -2,13 +2,9 @@ console.log('connected');
 
 
 /*----- constants -----*/ 
-const MAX_TURN = 5;
-const WIN_COUNT = 3;
+// const MAX_TURN = 5;
+// const WIN_COUNT = 3;
 
-// const player = {
-//     '1': "red",
-//     '-1': 'blue'
-// }
 
 const colors = {
     null: 'white',
@@ -16,67 +12,42 @@ const colors = {
     '-1': "blue",
 };
 
-// const winning = {
-    //
-//     {c0r0, c0r1, c0r2
-//     [1,1,1],
-//     [0,0,0],
-//     [0,0,0]
-//
-//     },
-//     {
+const winningCombos = [
+    // {c0r0, c0r1, c0r2
+    [1,2,3],
     // {c1r0, c1r1, c1r2}
-//     [0,0,0],
-//     [1,1,1],
-//     [0,0,0]
-//     },
-//     {
+    [4,5,6],
     // {c2r0, c2r1, c2r2}
-//     [0,0,0],
-//     [0,0,0],
-//     [1,1,1]
-//     },
-//     {
+    [7,8,9],
     // c0r0, c1r0, c2r0
-//     [1,0,0],
-//     [1,0,0],
-//     [1,0,0]
-//     },
-//     {
+    [1,4,7],
     // c0r1, c1r1, c2r1
-//     [0,1,0],
-//     [0,1,0],
-//     [0,1,0]
-//     },
-//     {
+    [2,5,8],
 // c0r2, c1r2, c2r2
-//     [0,0,1],
-//     [0,0,1],
-//     [0,0,1]
-//     },
-//     {
-    //c0r0, c1r1, c2r2
-//     [1,0,0],
-//     [0,1,0],
-//     [0,0,1]
-//     },
-//     {
+    [3,6,9],
+    // c0r0, c1r1, c2r2
+    [1,5,9],
 // c0r2, c1r1, c2r0
-//     [0,0,1],
-//     [0,1,0],
-//     [1,0,0]
-//     },
+    [3,5,7]
+];
 
-// }
+
+// const winner = 
+//if the current board value is === any of the arrays in winning, that's a win
+//if turns = 9 and the current board value doesn't ==== any of the arrays in winning, that's a tie
+//if turns are less than 9 and the current board value doesn't ==== any of the arrays in winning, that's a game still in progress
+
 
 
 /*----- app's state (variables) -----*/ 
-let turn, winner, board, players;
+let turn, board, players;
+
 
 /*----- cached element references -----*/ 
-const cell = document.querySelectorAll('section div');
 const reset = document.getElementById('reset');
-
+const cell = document.querySelectorAll('section div');
+//all of the cells get pushed into here
+const gridArr = [];
 
 
 /*----- event listeners -----*/ 
@@ -84,7 +55,11 @@ const reset = document.getElementById('reset');
 reset.addEventListener('click', init);
 
 //listen to events on the container
-cell.addEventListener('click', handleGridClick);
+for (const i of cell) {
+  i.addEventListener('click', handleGridClick);
+  gridArr.push(i);
+  console.log(gridArr);
+}
 
 
 /*----- functions -----*/
@@ -94,19 +69,25 @@ function handleGridClick(evt){
     turn *= -1;
     let clickedCell = evt.target;
     console.dir(evt.target);
-    console.log(turn);
-    // if (cell.includes(clickedCell)){
-    //     console.log("wt");
-    // }
-    // console.log(clickedCell)
-    // (evt.target).addClass('xPlayer');
     clickedCell.style.backgroundColor = colors[`${turn}`];
+
+    gridArr.forEach(function(el, i){
+        if (clickedCell.textContent === gridArr[i].textContent){
+          console.log("hi");  
+        }
+    })
 }
+        
+
 
 function render(){
-    //attach board to each div 
-    // let gridBoard = [];
-    // gridBoard.forEach*()
+    board.forEach(function(e,i){
+        gridArr.forEach(function(e,i){
+            gridArr[i].textContent = board[i];
+        })
+        return gridArr
+    })
+
 }
 
 
@@ -121,12 +102,13 @@ function init(){
         }
     };
     board = [
-        [0,0,0],
-        [0,0,0],
-        [0,0,0],
+        0,0,0,
+        0,0,0,
+        0,0,0
     ]
 
     turn = 1;
+    winner = null;
+    render();
 };
 
-console.log(board)
