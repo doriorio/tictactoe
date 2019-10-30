@@ -1,34 +1,26 @@
 /*----- constants -----*/
 const winning = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
     [1,4,7],
     [2,5,8],
-    [3,6,9],
-    [1,5,9],
-    [3,5,7]
+    [0,4,8],
+    [2,4,6]
 ];
 
 const MAX_TURNS = 9;
 
 
-
-const playerColors = {
-    null: 'white',
-    '1': "X",
-    '-1': "O",
-};
-
-
 /*----- app's state (variables) -----*/
-let turn, board, players;
+let board, winner;
 board = [
     0,0,0,
     0,0,0,
     0,0,0];
-
-
+let players = [-1,1];
+let turn = players[0];
 
 /*----- cached element references -----*/
 
@@ -51,22 +43,7 @@ for (const i of cell) {
 //listen to events on the container
 let storeXO = [];
 
-function checkForMatch(){
-    var allX = [];
-    var allO = [];
 
-    storeXO.forEach(function(el){
-    if (el.charAt(4) === "X"){
-        var x = el.charAt(1);
-        allX.push(x);
-    } else if (el[4] === "O"){
-        allO.push(parseInt(el.charAt(1)),el.char);
-        console.log(allO)
-        return allO;
-    }
-    })
-    
-}
 //sort the array, then sort the allX or allO and if allO matches 
 //- O .. vis versa
 
@@ -75,21 +52,41 @@ function checkForMatch(){
 
   
 function handleCellClick(evt){
-    turn *= -1;
+    if(turn===players[0]){
+        turn = players[1];
+        console.log(turn);
+    }
+    else {
+        turn = players[0];
+        console.log(turn);
+        }
+
+    // turn *= -1;
     let cellClicked = evt.target;
     //setting the textContent
-    if (cellClicked.textContent === "X" || cellClicked.textContent === "O"){
+    if (cellClicked.textContent === "-1" || cellClicked.textContent === "1"){
         return;
     }
-    evt.target.textContent = playerColors[`${turn}`];
+    evt.target.textContent = [`${turn}`];
     storeXO.push(`{${cellClicked.id}: ${cellClicked.textContent}}`);
+    board.splice(cellClicked.id,1,turn);
+    console.log(board);
+    checkForWin();
 
 }
 
-//every odd value is the X or O
-//every even value is the index
-
-
+function checkForWin(){
+    for(i=0; i<winning.length;i++){
+        if (board[winning[i][0]] + board[winning[i][1]] + board[winning[i][2]] === 3 ){
+            winner = turn;
+            console.log("hi");
+        }
+        if (board[winning[i][0]] + board[winning[i][1]] + board[winning[i][2]] === -3 ){
+            winner = turn;
+            console.log("hello");
+        }
+    }
+}
 
 /*----- functions -----*/
 
@@ -103,15 +100,7 @@ function render(){
 
 
 function init(){
-    turn = 1;
+    turn = players[0];
     var winner = null;
-    players = {
-        '1': {
-            score: 0
-        },
-        '-1': {
-            score: 0
-        }
-    },
     render();
 }
