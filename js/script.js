@@ -41,14 +41,7 @@ for (const i of cell) {
   
 
 //listen to events on the container
-let storeXO = [];
-
-
-//sort the array, then sort the allX or allO and if allO matches 
-//- O .. vis versa
-
-
-
+// let storeXO = [];
 
   
 function handleCellClick(evt){
@@ -60,18 +53,21 @@ function handleCellClick(evt){
         turn = players[0];
         console.log(turn);
         }
-
-    // turn *= -1;
     let cellClicked = evt.target;
     //setting the textContent
     if (cellClicked.textContent === "-1" || cellClicked.textContent === "1"){
         return;
     }
     evt.target.textContent = [`${turn}`];
-    storeXO.push(`{${cellClicked.id}: ${cellClicked.textContent}}`);
     board.splice(cellClicked.id,1,turn);
     console.log(board);
     checkForWin();
+    if (winner === 1 || winner === -1){
+        for (const i of cell) {
+            i.removeEventListener('click', handleCellClick);
+          };
+
+    }
 
 }
 

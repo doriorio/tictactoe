@@ -8,7 +8,7 @@
     /* margin: 0; */
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     font-family: 'Roboto Mono', monospace;
   }
@@ -21,10 +21,10 @@
   }
   
   section.container div {
-    display: inline-flex;
+    display: flex;
     border-radius: 50%;
     border: 1px solid black;
-    align-content: center;
+    /* align-content: center; */
     justify-content: center;
 
   }
