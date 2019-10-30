@@ -44,44 +44,50 @@ gridArr = [];
 for (const i of cell) {
     i.addEventListener('click', handleCellClick);
     gridArr.push(i);
-    console.log(gridArr);
   }
-
-//this is assigning everything a span that can match up to the board 0-9
-// gridArr.forEach(function(el,i){
-//     el.id = (board`${i}`);
-//     console.log(gridArr[i]);
-
-//     // newAttribute = document.createAttribute('boardIndex');
-//     // newAttribute.value = `${board}`[i];
-//     // el.setAttributeNode = newAttribute;
-// });
-// //then match each span to the board 0 - 0 - 0 in the init in some stored element representing currentboard
-
-
 
   
 
 //listen to events on the container
+let storeXO = [];
 
+function checkForMatch(){
+    var allX = [];
+    var allO = [];
+
+    storeXO.forEach(function(el){
+    if (el.charAt(4) === "X"){
+        var x = el.charAt(1);
+        allX.push(x);
+    } else if (el[4] === "O"){
+        allO.push(parseInt(el.charAt(1)),el.char);
+        console.log(allO)
+        return allO;
+    }
+    })
+    
+}
+//sort the array, then sort the allX or allO and if allO matches 
+//- O .. vis versa
+
+
+
+
+  
 function handleCellClick(evt){
     turn *= -1;
     let cellClicked = evt.target;
-    //setting the color
+    //setting the textContent
+    if (cellClicked.textContent === "X" || cellClicked.textContent === "O"){
+        return;
+    }
     evt.target.textContent = playerColors[`${turn}`];
-    var clickTurn = -1 * turn;
-    cellClicked = (`${clickTurn}`);
-    console.log(cellClicked);
+    storeXO.push(`{${cellClicked.id}: ${cellClicked.textContent}}`);
 
-
-    /// when someone clicks
-    //and the cell hasn't been clicked yet
-    //and we are still under the maxturns
-    //then change the thing that is matching up to my currentboard element 
-    ////forEach check if it is matching the winning conditions
-    ///if it is, game over
 }
 
+//every odd value is the X or O
+//every even value is the index
 
 
 
