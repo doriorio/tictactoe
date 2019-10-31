@@ -36,22 +36,40 @@
       text-align: center;
       height: 4rem;
       padding: 70px 0;
+      letter-spacing: .5rem;
 
   }
 
+  h3 {
+    background-color: RGBA(255,174,0,0.55);
+    letter-spacing: .3rem;
+    border-radius: 15%;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px RGBA(0,0,0,0.55);
+
+  }
 
   button {
-    border-radius: 50%;
+    border-radius: 5%;
     outline: none;
-    font-family: inherit;
+    font-family: Bookman;
     line-height: 1.15;
     margin: 0;
   }
 
-  xPlayer {
-    background-color: 'green';
+  .styleOne {
+    background-color: black;
+    background-image: url(pumpkin.svg);
+
   }
 
-  oPlayer {
-    background-color: 'red';
+  .styleTwo{
+    background-color: black;
+    background-image: url(ghost.svg);
+
+  }
+
+  .reset{
+    background-color: white;
+    background-image: '';
   }
